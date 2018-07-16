@@ -1,8 +1,10 @@
 #!/usr/bin/env node
-// let commander = require('commander');
-// import commander from 'commander';
-import sum from './index';
+import program from 'commander';
 
-console.log('jjjjj');
 
-console.log(sum(2, 2));
+program
+  .version('0.1.0')
+  .description('Compares two configuration files and shows the difference.')
+  .arguments('<firstConfig> <secondConfig>')
+  .option('-f, --format [type]', 'Output format')
+  .parse(process.argv);
