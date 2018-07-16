@@ -13,14 +13,21 @@
     "babel-node": "babel-node",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "eslint": "eslint"
   },
   "author": "Bodrus_Maxim",
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.6",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-0": "^6.24.1"
-  }
+    "babel-preset-stage-0": "^6.24.1",
+    "eslint": "^5.1.0",
+    "eslint-config-airbnb-base": "^13.0.0",
+    "eslint-plugin-babel": "^5.1.0",
+    "eslint-plugin-import": "^2.13.0"
+  },
+  "dependencies": {}
 }
