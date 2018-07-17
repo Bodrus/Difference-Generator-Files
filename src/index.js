@@ -3,9 +3,6 @@ import fs from 'fs';
 
 
 const getData = (pathFile) => {
-	console.log(pathFile)
-	// const pathToFixtures = `${__dirname}/../__tests__/__fixtures__`;
-	// const fileData = fs.readFileSync(`${pathToFixtures}/${pathFile}`,'utf-8');
 	const fileData = fs.readFileSync(pathFile,'utf-8');
   return fileData;
 };
