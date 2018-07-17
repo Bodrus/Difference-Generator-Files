@@ -10,7 +10,7 @@ const getData = (pathFile) => {
 
 const changeToString = (args) => {
 	const iter = (arr, acc) => {
-		const [el, ...rest] = arr;
+		const [el, ...rest] = arr;git 
 		if (rest.length === 0) {
 			const key = Object.keys(el[1]);
 			return `${acc}${el[0]} ${key}: ${el[1][key]}`;	
