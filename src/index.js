@@ -1,4 +1,4 @@
-import { has } from 'lodash';
+import _ from 'lodash';
 import fs from 'fs';
 import yaml from 'js-yaml';
 import path from 'path';
@@ -32,21 +32,17 @@ const getData = (pathFile) => {
   return data;
 };
 
-const getKeysToObjects = (after, before) => {
-  const keysbefore = Object.keys(before);
-  const keysAfter = Object.keys(after);
-  return keysbefore.reduce((acc, el) => (keysAfter.includes(el) ? acc
-    : [...acc, el]), keysAfter);
-};
+// ментальное програмирование 2.0 :)
+const getKeysFromObjects = (after, before) => _.union(_.keys(after), _.keys(before));
 
 
 const getConvertTostring = (before, after) => {
-  const allKeys = getKeysToObjects(after, before);
+  const keys = getKeysFromObjects(after, before);
 
-  const newString = allKeys.reduce((acc, key) => {
-    if (has(after, key) && !has(before, key)) {
+  const newString = keys.reduce((acc, key) => {
+    if (_.has(after, key) && !_.has(before, key)) {
       return [...acc, `+ ${key}: ${after[key]}`];
-    } if (has(after, key)) {
+    } if (_.has(after, key)) {
       if (before[key] === after[key]) {
         return [...acc, ` ${key}: ${after[key]}`];
       }
