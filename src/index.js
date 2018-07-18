@@ -8,22 +8,7 @@ const getData = (pathFile) => {
 };
 
 
-const changeToString = (args) => {
-  const iter = (arr, acc) => {
-    const [el, ...rest] = arr;
-    if (rest.length === 0) {
-      const key = Object.keys(el[1]);
-      return `${acc}${el[0]} ${key}: ${el[1][key]}`;
-    }
-    const key = Object.keys(el[1]);
-    const newAcc = `${acc}${el[0]} ${key}: ${el[1][key]}\n`;
-    return iter(rest, newAcc);
-  };
-  return iter(args, '');
-};
-
-
-const iter = (beforeJson, afterJson) => {
+const convert = (beforeJson, afterJson) => {
   const parseBeforeJson = JSON.parse(`${beforeJson}`);
   const parseAfterJson = JSON.parse(`${afterJson}`);
   const keysbefore = Object.keys(parseBeforeJson);
@@ -31,25 +16,26 @@ const iter = (beforeJson, afterJson) => {
   const allKeys = keysbefore.reduce((acc, el) => (keysAfter.includes(el) ? acc
     : [...acc, el]), keysAfter);
 
-  const newJson = allKeys.reduce((acc, key) => {
+
+  const newString = allKeys.reduce((acc, key) => {
     if (has(parseAfterJson, key) && !has(parseBeforeJson, key)) {
-      return [...acc, ['+', { [key]: parseAfterJson[key] }]];
+      return acc.concat(`+ ${key}: ${parseAfterJson[key]}`);
     } if (has(parseAfterJson, key)) {
       if (parseBeforeJson[key] === parseAfterJson[key]) {
-        return [...acc, ['', { [key]: parseAfterJson[key] }]];
+        return acc.concat(` ${key}: ${parseAfterJson[key]}`);
       }
-      const beforeObj = ['-', { [key]: parseBeforeJson[key] }];
-      const afterObj = ['+', { [key]: parseAfterJson[key] }];
-      return [...acc, beforeObj, afterObj];
+      const beforeStr = `- ${key}: ${parseBeforeJson[key]}`;
+      const afterStr = `+ ${key}: ${parseAfterJson[key]}`;
+      return acc.concat(`${beforeStr}`, `${afterStr}`);
     }
-    return [...acc, ['-', { [key]: parseBeforeJson[key] }]];
+    return acc.concat(`- ${key}: ${parseBeforeJson[key]}`);
   }, []);
 
-  return newJson;
+  return newString.join('\n');
 };
 
 
 export default (a, b) => {
-  const result = iter(getData(a), getData(b));
-  return changeToString(result);
+  const result = convert(getData(a), getData(b));
+  return result;
 };
