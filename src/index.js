@@ -23,26 +23,26 @@ const changeToString = (args) => {
 };
 
 
-const iter = (beforJson, afterJson) => {
-  const parseBeforJson = JSON.parse(`${beforJson}`);
+const iter = (beforeJson, afterJson) => {
+  const parseBeforeJson = JSON.parse(`${beforeJson}`);
   const parseAfterJson = JSON.parse(`${afterJson}`);
-  const keysbefor = Object.keys(parseBeforJson);
+  const keysbefore = Object.keys(parseBeforeJson);
   const keysAfter = Object.keys(parseAfterJson);
-  const allKeys = keysbefor.reduce((acc, el) => (keysAfter.includes(el) ? acc
+  const allKeys = keysbefore.reduce((acc, el) => (keysAfter.includes(el) ? acc
     : [...acc, el]), keysAfter);
 
   const newJson = allKeys.reduce((acc, key) => {
-    if (has(parseAfterJson, key) && !has(parseBeforJson, key)) {
+    if (has(parseAfterJson, key) && !has(parseBeforeJson, key)) {
       return [...acc, ['+', { [key]: parseAfterJson[key] }]];
     } if (has(parseAfterJson, key)) {
-      if (parseBeforJson[key] === parseAfterJson[key]) {
+      if (parseBeforeJson[key] === parseAfterJson[key]) {
         return [...acc, ['', { [key]: parseAfterJson[key] }]];
       }
-      const beforObj = ['-', { [key]: parseBeforJson[key] }];
+      const beforeObj = ['-', { [key]: parseBeforeJson[key] }];
       const afterObj = ['+', { [key]: parseAfterJson[key] }];
-      return [...acc, beforObj, afterObj];
+      return [...acc, beforeObj, afterObj];
     }
-    return [...acc, ['-', { [key]: parseBeforJson[key] }]];
+    return [...acc, ['-', { [key]: parseBeforeJson[key] }]];
   }, []);
 
   return newJson;
