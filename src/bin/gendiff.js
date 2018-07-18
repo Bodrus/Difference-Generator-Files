@@ -12,4 +12,4 @@ program
     console.log(genDiff(firstConfig, secondConfig));
   }));
 
-  program.parse(process.argv);
+program.parse(process.argv);
