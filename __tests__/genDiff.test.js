@@ -1,20 +1,26 @@
 import fs from 'fs';
 import genDiff from '../src';
 
-const pathToExpected = fs.readFileSync('__tests__/__fixtures__/expected.txt', 'utf-8');
+const pathToExpected = '__tests__/__fixtures__/expected.txt';
+const pathJsonBefore = '__tests__/__fixtures__/before.json';
+const pathJsonAfter = '__tests__/__fixtures__/after.json';
+const pathYamlBefore = '__tests__/__fixtures__/before.yml';
+const pathYamlAfter = '__tests__/__fixtures__/after.yml';
+const pathIniBefore = '__tests__/__fixtures__/before.ini';
+const pathIniAfter = '__tests__/__fixtures__/after.ini';
 
-const pathJsonBefore = `${__dirname}/__fixtures__/before.json`;
-const pathJsonAfter = `${__dirname}/__fixtures__/after.json`;
-const pathYamlBefore = `${__dirname}/__fixtures__/before.yml`;
-const pathYamlAfter = `${__dirname}/__fixtures__/after.yml`;
 
-describe('genDiff', () => {
-  test('json', () => {
-    const actual = genDiff(pathJsonBefore, pathJsonAfter);
-    expect(actual).toBe(pathToExpected);
-  });
-  test('yaml', () => {
-    const actual = genDiff(pathYamlBefore, pathYamlAfter);
-    expect(actual).toBe(pathToExpected);
-  });
+test('json', () => {
+  const actual = genDiff(pathJsonBefore, pathJsonAfter);
+  expect(actual).toBe(fs.readFileSync(pathToExpected, 'utf8'));
+});
+
+test('yaml', () => {
+  const actual = genDiff(pathYamlBefore, pathYamlAfter);
+  expect(actual).toBe(fs.readFileSync(pathToExpected, 'utf8'));
+});
+
+test('ini', () => {
+  const actual = genDiff(pathIniBefore, pathIniAfter);
+  expect(actual).toBe(fs.readFileSync(pathToExpected, 'utf8'));
 });
