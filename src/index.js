@@ -5,34 +5,33 @@ import path from 'path';
 import ini from 'ini';
 
 
-const getYamlFile = (pathFile) => {
-  const data = yaml.safeLoad(fs.readFileSync(pathFile, 'utf8'));
-  return data;
+const parsers = {
+  '.json': (pathFile) => {
+    const data = fs.readFileSync(pathFile, 'utf-8');
+    return JSON.parse(`${data}`);
+  },
+
+  '.yml': (pathFile) => {
+    const data = yaml.safeLoad(fs.readFileSync(pathFile, 'utf8'));
+    return data;
+  },
+
+  '.ini': (pathFile) => {
+    const data = ini.parse(fs.readFileSync(pathFile, 'utf-8'));
+    return data;
+  },
 };
 
-const getJsonFile = (pathFile) => {
-  const data = fs.readFileSync(pathFile, 'utf-8');
-  return JSON.parse(`${data}`);
-};
-
-const getIniFile = (pathFile) => {
-  const data = ini.parse(fs.readFileSync(pathFile, 'utf-8'));
-  return data;
-};
-
-const getWay = {
-  '.json': arg => getJsonFile(arg),
-  '.yml': arg => getYamlFile(arg),
-  '.ini': arg => getIniFile(arg),
-};
+const getParser = extName => parsers[extName];
 
 const getData = (pathFile) => {
-  const flag = path.extname(pathFile);
-  const data = getWay[flag](pathFile);
+  const extName = path.extName(pathFile);
+  const parser = getParser(extName);
+  const data = parser(pathFile);
   return data;
 };
 
-// ментальное програмирование 2.0 :)
+
 const getKeysFromObjects = (after, before) => _.union(_.keys(after), _.keys(before));
 
 
