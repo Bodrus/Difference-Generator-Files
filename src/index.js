@@ -12,7 +12,6 @@ const parsers = {
 
 const getParser = extName => parsers[extName];
 
-
 const getData = (pathFile) => {
   const extName = path.extname(pathFile);
   const parser = getParser(extName);
