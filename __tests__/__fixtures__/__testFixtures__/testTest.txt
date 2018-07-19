@@ -1,0 +1,10 @@
+{
+	common: {
+		setting1: Value 3
+		+ setting2: value
+		- setting2: {
+			key: value
+		}
+	}
+}
+
