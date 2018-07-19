@@ -5,6 +5,22 @@ import path from 'path';
 import ini from 'ini';
 
 
+// const getYamlFile = (pathFile) => {
+//   const data = yaml.safeLoad(fs.readFileSync(pathFile, 'utf8'));
+//   return data;
+// };
+
+// const getJsonFile = (pathFile) => {
+//   const data = fs.readFileSync(pathFile, 'utf-8');
+//   return JSON.parse(`${data}`);
+// };
+
+// const getIniFile = (pathFile) => {
+//   const data = ini.parse(fs.readFileSync(pathFile, 'utf-8'));
+//   return data;
+// };
+
+
 const parsers = {
   '.json': (pathFile) => {
     const data = fs.readFileSync(pathFile, 'utf-8');
@@ -24,8 +40,9 @@ const parsers = {
 
 const getParser = extName => parsers[extName];
 
+
 const getData = (pathFile) => {
-  const extName = path.extName(pathFile);
+  const extName = path.extname(pathFile);
   const parser = getParser(extName);
   const data = parser(pathFile);
   return data;
