@@ -5,20 +5,9 @@ import path from 'path';
 import ini from 'ini';
 
 const parsers = {
-  '.json': (pathFile) => {
-    const data = fs.readFileSync(pathFile, 'utf-8');
-    return JSON.parse(`${data}`);
-  },
-
-  '.yml': (pathFile) => {
-    const data = yaml.safeLoad(fs.readFileSync(pathFile, 'utf8'));
-    return data;
-  },
-
-  '.ini': (pathFile) => {
-    const data = ini.parse(fs.readFileSync(pathFile, 'utf-8'));
-    return data;
-  },
+  '.json': JSON.parse,
+  '.yml': yaml.safeLoad,
+  '.ini': ini.parse,
 };
 
 const getParser = extName => parsers[extName];
@@ -27,9 +16,8 @@ const getParser = extName => parsers[extName];
 const getData = (pathFile) => {
   const extName = path.extname(pathFile);
   const parser = getParser(extName);
-  console.log(parser);
-  const data = parser(pathFile);
-  return data;
+  const data = fs.readFileSync(pathFile, 'utf-8');
+  return parser(data);
 };
 
 
