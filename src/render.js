@@ -9,16 +9,17 @@ const createString = (obj) => {
   } = obj;
 
   if (type === 'changed') {
-    const str1 = `- ${key} ${beforeValue}`;
-    const str2 = `+ ${key} ${afterValue}`;
-    return `${str1}\n ${str2}`;
+    const str1 = `- ${key}: ${beforeValue}`;
+    const str2 = `+ ${key}: ${afterValue}`;
+    return [str1, str2].join('\n');
   } if (type === 'unchaged') {
-    return ` ${key} ${afterValue}`;
-  } if (type === 'deleted ') {
-    return `- ${key} ${beforeValue}`;
+    return `  ${key}: ${afterValue}`;
+  } if (type === 'deleted') {
+    return `- ${key}: ${beforeValue}`;
   }
-  return `+ ${key} ${afterValue}`;
+  return `+ ${key}: ${afterValue}`;
 };
+
 
 const render = (data) => {
   const result = data.reduce((acc, el) => {
