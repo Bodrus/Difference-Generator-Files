@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import getAst from './getAst';
 import getParser from './getParsers';
+import render from './render';
 
 
 const getData = (pathFile) => {
@@ -16,6 +17,6 @@ const getData = (pathFile) => {
 
 export default (a, b) => {
   const result = getAst(getData(a), getData(b));
-  // const result = getConvertTostring(getData(a), getData(b));
-  return result;
+  const actual = render(result);
+  return actual;
 };
