@@ -20,7 +20,6 @@ const createString = (obj) => {
   return `+ ${key} ${afterValue}`;
 };
 
-
 const render = (data) => {
   const result = data.reduce((acc, el) => {
     const body = createString(el);
