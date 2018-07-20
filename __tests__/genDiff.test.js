@@ -28,27 +28,27 @@ describe('difference tests', () => {
   const expectedFlat = fs.readFileSync(result, 'UTF-8');
   const expectedDeep = fs.readFileSync(resultTree, 'UTF-8');
 
-  it('difference test for flat JSON', () => {
+  it('flat JSON', () => {
     expect(genDiff(afterJSON, beforeJSON)).toEqual(expectedFlat);
   });
 
-  it('difference test for deep JSON', () => {
+  it('tree JSON', () => {
     expect(genDiff(beforeJSONtree, afterJSONtree)).toEqual(expectedDeep);
   });
 
-  it('difference test for flat YAML', () => {
-    expect(genDiff(afterYAML, beforeYAML)).toEqual(expectedFlat);
-  });
-
-  it('difference test for deep YAML', () => {
-    expect(genDiff(afterYAMLtree, beforeYAMLtree)).toEqual(expectedDeep);
-  });
-
-  it('difference test for flat INI', () => {
+  it('flat INI', () => {
     expect(genDiff(afterINI, beforeINI)).toEqual(expectedFlat);
   });
 
-  it('difference test for deep INI', () => {
+  it('tree INI', () => {
     expect(genDiff(afterINItree, beforeINItree)).toEqual(expectedDeep);
+  });
+
+  it('flat YAML', () => {
+    expect(genDiff(afterYAML, beforeYAML)).toEqual(expectedFlat);
+  });
+
+  it('tree YAML', () => {
+    expect(genDiff(afterYAMLtree, beforeYAMLtree)).toEqual(expectedDeep);
   });
 });
