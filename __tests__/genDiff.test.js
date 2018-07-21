@@ -17,16 +17,31 @@ const beforeINItree = pathToFixtures('afterTree.ini');
 const afterYAML = pathToFixtures('before.yml');
 const beforeYAML = pathToFixtures('after.yml');
 const afterYAMLtree = pathToFixtures('beforeTree.yml');
-const beforeYAMLtree = pathToFixtures('afterTree.yaml');
+const beforeYAMLtree = pathToFixtures('afterTree.yml');
 
-
+// Путь к файлу результат
 const result = pathToFixtures('expected.txt');
 const resultTree = pathToFixtures('treeExpected.txt');
+
+// const resultAST = pathToFixtures('resultAST.txt');
+// const resultASTtree = pathToFixtures('resultASTtree.txt');
 
 
 describe('difference tests', () => {
   const expectedFlat = fs.readFileSync(result, 'UTF-8');
   const expectedDeep = fs.readFileSync(resultTree, 'UTF-8');
+
+  // const expectedASt = fs.readFileSync(resultAST, 'UTF-8');
+  // const expectedASttree = fs.readFileSync(resultASTtree, 'UTF-8');
+
+  // it('flat AST', () => {
+  //   expect(genDiff(afterJSON, beforeJSON)).toEqual(expectedASt);
+  // });
+
+  // it('Tree AST', () => {
+  //   expect(genDiff(afterJSONtree, beforeJSONtree)).toEqual(expectedASttree);
+  // });
+
 
   it('flat JSON', () => {
     expect(genDiff(afterJSON, beforeJSON)).toEqual(expectedFlat);

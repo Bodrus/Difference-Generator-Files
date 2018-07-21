@@ -1,0 +1,6 @@
+[{type: 'changed', key: 'timeout', beforeValue: '50', afterValue: '20'},
+ {type: 'added', key: 'verbose', beforeValue: '', afterValue: 'true'},
+ {type: 'unchanged', key: 'host', beforeValue: 'hexlet.io', afterValue: 'hexlet.io'},
+ {type: 'deleted', key: 'proxy', beforeValue: '123.234.53.22', afterValue: ''}
+ {type: 'deleted', key: 'follow', beforeValue: 'false', afterValue: ''},
+]

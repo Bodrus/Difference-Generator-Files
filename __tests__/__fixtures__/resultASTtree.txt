@@ -1,0 +1,20 @@
+[
+	{type: 'taglist', key: 'common', children: [
+		{type: 'added', key: 'follow', beforeValue: '', afterVAlue: 'false'},
+		{type: 'unchanged', key: 'setting1', beforeValue: 'Value 1', afterValue: 'Value 1'},
+		{type: 'deleted', key: 'setting2', beforeValue: '200', afterValue: ''},
+		{type: 'changed', key: 'setting3', beforeValue: 'true', afterValue: { key: 'value' }},
+		{type: 'unchanged', key: 'setting6', children: [
+			{type: 'unchanged', key: 'key', beforeValue: 'value', afterValue: 'value'},
+			{type: 'added', key: 'ops', beforeValue: '', afterVAlue: 'vops'}]},
+		{type: 'added', key: 'setting4', afterValue: '', beforeValue: 'blah blah'},
+		{type: 'added', key: 'setting5', children: [{key5: 'value5'}]},
+		{type: ''}]},
+	{type: 'taglist', key: 'group1', children: [
+		{type: 'changed', key: 'baz', beforeValue: 'bas', afterVAlue: 'bars'},
+		{type: 'unchanged', key: 'foo', beforeValue: 'bar', afterValue: 'bar'},
+		{type: 'changed', key: 'nest', beforeValue: {key: 'value'}, afterValue: 'str'}
+	]},
+	{type: 'deleted', key: 'group2', beforeValue: {abc: '12345'}},
+	{type: 'added', key: 'group3', beforeValue: '', afterValue: {fee: '100500'}}
+] 

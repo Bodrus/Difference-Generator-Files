@@ -1,35 +1,32 @@
 
 
-const createString = (obj) => {
-  const {
-    type,
-    key,
-    beforeValue,
-    afterValue,
-  } = obj;
-
-  if (type === 'changed') {
-    const str1 = `- ${key}: ${beforeValue}`;
-    const str2 = `+ ${key}: ${afterValue}`;
-    return [str1, str2].join('\n');
-  } if (type === 'unchaged') {
-    return `  ${key}: ${afterValue}`;
-  } if (type === 'deleted') {
-    return `- ${key}: ${beforeValue}`;
+const printObl = (obj) => {
+  if (obj instanceof Object) {
+    const keys = Object.keys(obj);
+    return keys.map(el => `{\n       ${el}: ${obj[el]}\n}`);
   }
-  return `+ ${key}: ${afterValue}`;
+  return obj;
 };
 
 
-const render = (data) => {
-  const result = data.reduce((acc, el) => {
-    const body = createString(el);
-    return [...acc, body];
-  }, []);
+const buildTAGLIST = arg => `${arg.key}: {\n ${build(arg.children)}\n}`;
+const buildAddedTags = arg => `+ ${arg.key}: ${printObl(arg.afterValue)}\n`;
+const buildDeletedTags = arg => `- ${arg.key}: ${printObl(arg.beforeValue)}\n`;
+const builUnchangetTags = arg => `  ${arg.key}: ${arg.beforeValue}\n`;
+const buildChangedTags = arg => `+ ${arg.key}: ${printObl(arg.afterValue)}\n- ${arg.key}: ${arg.beforeValue}\n`;
 
-
-  return result.join('\n');
+const buildDIF = {
+  taglist: arg => buildTAGLIST(arg),
+  added: arg => buildAddedTags(arg),
+  deleted: arg => buildDeletedTags(arg),
+  changed: arg => buildChangedTags(arg),
+  unchaged: arg => builUnchangetTags(arg),
 };
 
+const getBuilder = key => buildDIF[key];
 
-export default render;
+
+const build = buildHtml => String(buildHtml.map(el => `${getBuilder(el.type)(el)}`));
+
+
+export default build;
