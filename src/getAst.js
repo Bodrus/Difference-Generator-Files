@@ -8,6 +8,7 @@ const getKeysFromObjects = (after, before) => _.union(_.keys(after), _.keys(befo
 
 const getAst = (before, after) => {
   const buildAst = (key) => {
+
     const getStructureAst = {
       added: {
         type: 'added', key, beforeValue: '', afterValue: after[key],
@@ -19,12 +20,14 @@ const getAst = (before, after) => {
         type: 'deleted', key, beforeValue: before[key], afterValue: '',
       },
       unchaged: {
-        type: 'unchaged', key, beforeValue: before[key], afterValue: after[key],
+        type: 'unchanged', key, beforeValue: before[key], afterValue: after[key],
       },
       tagList: {
         type: 'tagList', key, children: [],
       },
     };
+
+    const buildNode = type => getStructureAst[type];
 
 
     if (_.has(after, key) && _.has(before, key)) {
@@ -33,13 +36,13 @@ const getAst = (before, after) => {
           type: 'taglist', key, children: getAst(before[key], after[key]),
         };
       } if (before[key] === after[key]) {
-        return getStructureAst.unchaged;
+        return buildNode('unchaged');
       }
-      return getStructureAst.changed;
+      return buildNode('changed');
     } if (_.has(after, key) && !_.has(before, key)) {
-      return getStructureAst.added;
+      return buildNode('added');
     }
-    return getStructureAst.deleted;
+    return buildNode('deleted');
   };
 
   const keys = getKeysFromObjects(after, before);
