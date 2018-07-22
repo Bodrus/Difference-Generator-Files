@@ -15,9 +15,9 @@ const buildDIF = {
   added: arg => `+ ${arg.key}: ${printObl(arg.afterValue)}`,
   deleted: arg => `- ${arg.key}: ${printObl(arg.beforeValue)}`,
   changed: (arg) => {
-    const before = [`- ${arg.key}: ${arg.beforeValue}\n`];
     const after = [`+ ${arg.key}: ${arg.afterValue}`];
-    return _.flatten([before, after]);
+    const before = [`- ${arg.key}: ${arg.beforeValue}`];
+    return _.flatten([after, before]).join('\n');
   },
   unchanged: arg => `  ${arg.key}: ${printObl(arg.beforeValue)}`,
 };
