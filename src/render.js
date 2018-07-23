@@ -8,12 +8,8 @@ const propertyActions = [
   },
   {
     type: 'changed',
-    func: (fn, arg) => {
-      const after = [`+ ${arg.key}: ${arg.afterValue}`];
-      const before = [`- ${arg.key}: ${arg.beforeValue}`];
-      console.log(after, before)
-      return _.flatten([after, before]);
-    },
+    func: (fn, arg) => [`- ${arg.key}: ${fn(arg.beforeValue)}`, `+ ${arg.key}: ${fn(arg.afterValue)}`],
+
   },
   {
     type: 'unchanged',
