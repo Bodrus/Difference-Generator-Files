@@ -32,7 +32,7 @@ const renderToString = (ast, deep = 0) => {
     return `${' '.repeat(spacesCounter)}${str}`;
   };
 
-  const printObl = (el) => {
+  const stringify = (el) => {
     if (!(el instanceof Object)) {
       return el;
     }
@@ -44,7 +44,7 @@ const renderToString = (ast, deep = 0) => {
 
   const buildString = (data) => {
     const { func } = propertyActions.find(({ type }) => type === data.type);
-    return func(printObl, data, renderToString, deep + 1);
+    return func(stringify, data, renderToString, deep + 1);
   };
 
   const result = ast.map(buildString);

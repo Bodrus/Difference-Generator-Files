@@ -29,15 +29,15 @@ const printObl = (elem) => {
   return elem;
 };
 
-const ASTtoString = (ast, acc = '') => {
-  const buildStr = (elem) => {
+const convertedAstToString = (ast, acc = '') => {
+  const createString = (elem) => {
     const { func } = nodeType.find(({ type }) => type === elem.type);
-    return func(elem, acc, printObl, ASTtoString);
+    return func(elem, acc, printObl, convertedAstToString);
   };
 
-  return ast.map(buildStr).join('\n');
+  return ast.map(createString).join('\n');
 };
 
-const buildPlain = data => ASTtoString(data);
+const plainRender = data => convertedAstToString(data);
 
-export default buildPlain;
+export default plainRender;
