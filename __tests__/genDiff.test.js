@@ -22,13 +22,13 @@ const beforeYAMLtree = pathToFixtures('afterTree.yml');
 // Путь к файлу результат
 const result = pathToFixtures('expected.txt');
 const resultTree = pathToFixtures('treeExpected.txt');
-// const resultPlain = pathToFixtures('resultPlain.txt');
+const resultPlain = pathToFixtures('resultPlain.txt');
 
 
 describe('difference tests', () => {
   const expectedFlat = fs.readFileSync(result, 'utf-8');
   const expectedDeep = fs.readFileSync(resultTree, 'utf-8');
-  // const expectedPlain = fs.readFileSync(resultPlain, 'utf-8');
+  const expectedPlain = fs.readFileSync(resultPlain, 'utf-8');
 
 
   it('flat JSON', () => {
@@ -54,7 +54,7 @@ describe('difference tests', () => {
   it('tree YAML', () => {
     expect(genDiff(afterYAMLtree, beforeYAMLtree)).toEqual(expectedDeep);
   });
-  // it('JSON with format PLAIN', () => {
-  //   expect(genDiff(afterYAMLtree, beforeYAMLtree, 'plain')).toEqual(expectedPlain);
-  // });
+  it('JSON with format PLAIN', () => {
+    expect(genDiff(afterYAMLtree, beforeYAMLtree, 'plain')).toEqual(expectedPlain);
+  });
 });
