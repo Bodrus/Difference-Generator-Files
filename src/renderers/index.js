@@ -1,14 +1,14 @@
-import standart from './standart';
+import st from './standart';
 import plain from './plain';
 
-const renderers = {
-  standart,
+const renders = {
+  standart: st,
   plain,
   json: JSON.stringify,
 };
 
 const getRenderer = (format) => {
-  const render = renderers[format];
+  const render = renders[format];
   return render;
 };
 

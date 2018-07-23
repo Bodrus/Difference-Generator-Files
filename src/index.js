@@ -14,7 +14,7 @@ const getData = (pathFile) => {
 };
 
 
-export default (a, b, format = 'st') => {
+export default (a, b, format = 'standart') => {
   const result = getAst(getData(a), getData(b));
   const render = getRender(format);
   const actual = render(result);
