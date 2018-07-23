@@ -42,7 +42,6 @@ const propertyActions = [
 
 const getAst = (before, after) => {
   const buildAstNode = (publicKey) => {
-    // const { type, fn } = getPropertyAction(publicKey);
     const { type, fn } = propertyActions.find(({ check }) => check(before, after, publicKey));
 
     return ({ type, key: publicKey, ...fn(before[publicKey], after[publicKey], getAst) });

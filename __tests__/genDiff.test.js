@@ -22,25 +22,13 @@ const beforeYAMLtree = pathToFixtures('afterTree.yml');
 // Путь к файлу результат
 const result = pathToFixtures('expected.txt');
 const resultTree = pathToFixtures('treeExpected.txt');
-
-// const resultAST = pathToFixtures('resultAST.txt');
-// const resultASTtree = pathToFixtures('resultASTtree.txt');
+// const resultPlain = pathToFixtures('resultPlain.txt');
 
 
 describe('difference tests', () => {
-  const expectedFlat = fs.readFileSync(result, 'UTF-8');
-  const expectedDeep = fs.readFileSync(resultTree, 'UTF-8');
-
-  // const expectedASt = fs.readFileSync(resultAST, 'UTF-8');
-  // const expectedASttree = fs.readFileSync(resultASTtree, 'UTF-8');
-
-  // it('flat AST', () => {
-  //   expect(genDiff(afterJSON, beforeJSON)).toEqual(expectedASt);
-  // });
-
-  // it('Tree AST', () => {
-  //   expect(genDiff(afterJSONtree, beforeJSONtree)).toEqual(expectedASttree);
-  // });
+  const expectedFlat = fs.readFileSync(result, 'utf-8');
+  const expectedDeep = fs.readFileSync(resultTree, 'utf-8');
+  // const expectedPlain = fs.readFileSync(resultPlain, 'utf-8');
 
 
   it('flat JSON', () => {
@@ -66,4 +54,7 @@ describe('difference tests', () => {
   it('tree YAML', () => {
     expect(genDiff(afterYAMLtree, beforeYAMLtree)).toEqual(expectedDeep);
   });
+  // it('JSON with format PLAIN', () => {
+  //   expect(genDiff(afterYAMLtree, beforeYAMLtree, 'plain')).toEqual(expectedPlain);
+  // });
 });

@@ -8,7 +8,7 @@ const propertyActions = [
   },
   {
     type: 'changed',
-    func: (fn, arg) => [`- ${arg.key}: ${fn(arg.beforeValue)}`, `+ ${arg.key}: ${fn(arg.afterValue)}`],
+    func: (fn, arg) => [`- ${arg.key}: ${(arg.beforeValue)}`, `+ ${arg.key}: ${fn(arg.afterValue)}`],
 
   },
   {

@@ -1,9 +1,8 @@
-// import _ from 'lodash';
 import fs from 'fs';
 import path from 'path';
 import getAst from './getAst';
 import parsers from './parsers';
-import render from './render';
+import getRender from './renders/main';
 
 
 const getData = (pathFile) => {
@@ -15,8 +14,9 @@ const getData = (pathFile) => {
 };
 
 
-export default (a, b) => {
+export default (a, b, format = 'st') => {
   const result = getAst(getData(a), getData(b));
+  const render = getRender(format);
   const actual = render(result);
   return actual;
 };
