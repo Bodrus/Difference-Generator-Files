@@ -1,29 +1,61 @@
 import _ from 'lodash';
 
-const printObl = (obj) => {
-  if (!(obj instanceof Object)) {
-    return obj;
-  }
-  const keys = Object.keys(obj);
-  const parseObj = keys.map(el => `{\n         ${el}: ${obj[el]}\n}`);
-  return parseObj;
-};
 
-
-const buildDIF = {
-  // taglist: arg => `${arg.key}: {\n ${build(arg.children)}`,
-  added: arg => `+ ${arg.key}: ${printObl(arg.afterValue)}`,
-  deleted: arg => `- ${arg.key}: ${printObl(arg.beforeValue)}`,
-  changed: (arg) => {
-    const after = [`+ ${arg.key}: ${arg.afterValue}`];
-    const before = [`- ${arg.key}: ${arg.beforeValue}`];
-    return _.flatten([after, before]).join('\n');
+const propertyActions = [
+  {
+    type: 'tagList',
+    func: (fn, arg, recurse, deep) => [`  ${arg.key}: {\n${recurse(arg.children, deep)}`, '  }'],
   },
-  unchanged: arg => `  ${arg.key}: ${printObl(arg.beforeValue)}`,
+  {
+    type: 'changed',
+    func: (fn, arg) => {
+      const after = [`+ ${arg.key}: ${arg.afterValue}`];
+      const before = [`- ${arg.key}: ${arg.beforeValue}`];
+      console.log(after, before)
+      return _.flatten([after, before]);
+    },
+  },
+  {
+    type: 'unchanged',
+    func: (fn, arg) => `  ${arg.key}: ${fn(arg.beforeValue)}`,
+  },
+  {
+    type: 'added',
+    func: (fn, arg) => `+ ${arg.key}: ${fn(arg.afterValue)}`,
+  },
+  {
+    type: 'deleted',
+    func: (fn, arg) => `- ${arg.key}: ${fn(arg.beforeValue)}`,
+  },
+];
+
+
+const renderToString = (ast, deep = 0) => {
+  const counterIndentation = (str) => {
+    const spacesCounter = (deep * 4) + 2;
+    return `${' '.repeat(spacesCounter)}${str}`;
+  };
+
+  const printObl = (el) => {
+    if (!(el instanceof Object)) {
+      return el;
+    }
+    const keys = Object.keys(el);
+    const indentation = [keys.map(elem => `${' '.repeat(6)}${elem}: ${el[elem]}`), '  }'];
+    const result = indentation.map(counterIndentation);
+    return `{\n${result.join('\n')}`;
+  };
+
+  const buildString = (data) => {
+    const { func } = propertyActions.find(({ type }) => type === data.type);
+    return func(printObl, data, renderToString, deep + 1);
+  };
+
+  const result = ast.map(buildString);
+  const addSpaces = _.flatten(result).map(counterIndentation);
+  return addSpaces.join('\n');
 };
 
-const getBuilder = key => buildDIF[key];
+const render = data => `{\n${renderToString(data)}\n}`;
 
-const build = ast => ast.map(el => (el.type === 'taglist' ? `${el.key}: {\n ${build(el.children)}` : `${getBuilder(el.type)(el)}`)).join('\n');
-
-export default build;
+export default render;
