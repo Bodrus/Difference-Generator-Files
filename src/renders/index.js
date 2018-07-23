@@ -4,6 +4,7 @@ import plain from './plainRender';
 const renders = {
   st,
   plain,
+  json: JSON.stringify,
 };
 
 const getRenderer = (format) => {

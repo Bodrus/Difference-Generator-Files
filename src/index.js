@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import getAst from './getAst';
 import parsers from './parsers';
-import getRender from './renders/main';
+import getRender from './renders';
 
 
 const getData = (pathFile) => {
