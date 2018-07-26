@@ -1,5 +1,5 @@
-## Вычислитель отличий
-Небольшая cli-утилита для поиска отличий в конфигурационных файлах (json, yaml, ini).
+## Difference-Generator-Files
+Simple cli-tool for checking difference between configuration files. Works with JSON, YML and INI files.
 ```
 $ gendiff before.json after.json
 
@@ -21,16 +21,17 @@ $ gendiff before.json after.json
 
 
 ### Use: 
+
 install: `sudo npm install -g determinant_differences_bodrus`.
 
-`gendiff before.json after.json` - сравнение двух json-файлов.
+`gendiff before.json after.json` - comparing two json files.
 
-`gendiff before.yml after.yml` - сравнение двух yaml-файлов.
+`gendiff before.yml after.yml` - comparing two yaml files.
 
-`gendiff before.ini after.ini` - сравнение двух ini-файлов.
+`gendiff before.ini after.ini` - comparing two ini files.
 
 ### Flags:
-`--format` - позволяет вывести дифф в плоском формате:
+`--format` - allows you to output result in a flat format:
 ```
 $ gendiff --format plain before.json after.json
 
@@ -47,5 +48,5 @@ Property 'verbose' was added with value: true
 Property 'group2' was added with complex value
 ```
 ---
-`--json` - позволяет вывести дифф в виде json.
+`--json` - allows you to output diff in the form json.
 
